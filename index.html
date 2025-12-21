@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b8659964f9.js" crossorigin="anonymous"></script></head>
+<body>
+    <div class="modal">
+        <div class="modalContent">
+            <span id="closeModal">&times;</span>
+            <form id="customizeForm" autocomplete="off">
+                <div>
+                    <label for="player1Name">Player 1 Name</label>
+                    <input id="player1Name" type="text">
+                </div>
+                <div>
+                    <label for="player2Name">Player 2 Name</label>
+                    <input id="player2Name" type="text">
+                </div>
+                <div>
+                    <label for="countdownInitial">What are we counting down from?</label>
+                    <input id="countdownInitial" type="number">
+                </div>
+                <div>
+                    <label for="countdownMin">What's the minimum value we'll countdown by?</label>
+                    <input id="countdownMin" type="number">
+                </div>
+                <div>
+                    <label for="countdownMax">What's the maximum value we'll countdown by?</label>
+                    <input id="countdownMax" type="number">
+                </div>
+                <div id="buttonContainer"><button id="submitButton" type="submit">Customize</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="header">
+        <div id="left">
+            <i class="fa-solid fa-hourglass-start"></i>
+            <button id="customizeButton">Customize</button>
+        </div>
+        <div id="middle">
+            <h1>Countdown Challenge</h1>
+        </div>
+    </div>
+    <div id="turnContainer">
+        <h3>Turn: Player 1</h3>
+        <button id="play"><i class="fa-solid fa-dice-two"></i></button>
+    </div>
+    <div id="gridContainer">
+        <div id="left">
+            <h4>Player 1</h4>
+            <h5>Countdown Taken: <span id="player1Taken">0</span></h5>
+        </div>
+        <div id="middle">
+            <div id="countdownNumber">50</div>
+        </div>
+        <div id="right">
+            <h4>Player 2</h4>
+            <h5>Countdown Taken: <span id="player1Taken">0</span></h5>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
