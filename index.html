@@ -14,23 +14,23 @@
                 <form id="customizeForm" autocomplete="off">
                     <div>
                         <label for="player1Name">Player 1 Name</label>
-                        <input id="player1Name" type="text" />
+                        <input id="player1Name" value="Player 1" type="text" />
                     </div>
                     <div>
                         <label for="player2Name">Player 2 Name</label>
-                        <input id="player2Name" type="text" />
+                        <input id="player2Name" value="Player 2" type="text" />
                     </div>
                     <div>
-                        <label for="countdownInitial">What are we counting down from?</label>
-                        <input id="countdownInitial" type="number" />
+                        <label for="countdownNumber">What are we counting down from?</label>
+                        <input id="countdownNumber" value="50" type="number" />
                     </div>
                     <div>
                         <label for="countdownMin">What's the minimum value we'll countdown by?</label>
-                        <input id="countdownMin" type="number" />
+                        <input id="countdownMin" value="1" type="number" />
                     </div>
                     <div>
                         <label for="countdownMax">What's the maximum value we'll countdown by?</label>
-                        <input id="countdownMax" type="number" />
+                        <input id="countdownMax" value="6" type="number" />
                     </div>
                     <div id="buttonContainer">
                         <button id="submitButton" type="submit">Customize</button>
@@ -48,22 +48,26 @@
             </div>
         </div>
         <div id="turnContainer">
-            <h3>Turn: Player 1</h3>
-            <button id="play"><i class="fa-solid fa-dice-two"></i></button>
+            <h3 id="turnIndicatorText">Turn: Player 1</h3>
+            <button id="playButton"><i class="fa-solid fa-dice-two"></i></button>
+        </div>
+        <div id="incrementContainer">
+            <h6 id="countdownMinText">Min: 1</h6>
+            <h6 id="countdownMaxText">Max: 6</h6>
         </div>
         <div id="gridContainer">
             <div id="left">
-                <h4>Player 1</h4>
+                <h4 id="player1Text">Player 1</h4>
                 <h5>Countdown Taken:</h5>
-                <span id="player1Taken">0</span>
+                <span id="player1TakenText">0</span>
             </div>
             <div id="middle">
-                <div id="countdownNumber">50</div>
+                <div id="countdownNumberText">50</div>
             </div>
             <div id="right">
-                <h4>Player 2</h4>
+                <h4 id="player2Text">Player 2</h4>
                 <h5>Countdown Taken:</h5>
-                <span id="player1Taken">0</span>
+                <span id="player2TakenText">0</span>
             </div>
         </div>
         <script src="main.js"></script>

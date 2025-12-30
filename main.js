@@ -11,7 +11,7 @@ const form = (function formController() {
             player2Name: 'Player 2',
         },
         countdownSettings: {
-            countdownInitial: 50,
+            countdownNumber: 50,
             countdownMin: 1,
             countdownMax: 6,
         },
@@ -32,7 +32,7 @@ const form = (function formController() {
                 player2Name: document.querySelector('#player2Name').value,
             },
             countdownSettings: {
-                countdownInitial: document.querySelector('#countdownInitial').value,
+                countdownNumber: document.querySelector('#countdownNumber').value,
                 countdownMin: document.querySelector('#countdownMin').value,
                 countdownMax: document.querySelector('#countdownMax').value,
             },
@@ -49,31 +49,92 @@ const form = (function formController() {
     };
 })();
 const game = (function gameController() {
-    return { 
-        
+    
+    let turnIndex = 0;
+    let playerTaken = {
+        player1Taken: 0,
+        player2Taken: 0
     }
+    function changeTurn() {
+        turnIndex++;
+    }
+    function getPlayerTaken() {
+        return playerTaken;
+    }
+    function getTurn() {
+        if (turnIndex % 2 === 0) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+    function playTurn() {
+        const customizations = form.getCustomizations();
+        const player = getTurn();
+       
+        let min = Math.ceil(customizations.countdownSettings.countdownMin);
+        let max = Math.ceil(customizations.countdownSettings.countdownMax);
+        
+        const increment = Math.floor(Math.random() * (max - min + 1) + min);
+         if(getTurn() === 1) {
+            if(increment <= customizations.countdownSettings.countdownNumber) {
+                playerTaken.player1Taken += increment;
+                customizations.countdownSettings.countdownNumber -= increment;
+            }
+            else {
+                playerTaken.player1Taken += customizations.countdownSettings.countdownNumber;
+                customizations.countdownSettings.countdownNumber = 0;
+            }
+        }
+        else if(player === 2) {
+            if(increment <= customizations.countdownSettings.countdownNumber) {
+                playerTaken.player2Taken += increment;
+                customizations.countdownSettings.countdownNumber -= increment;
+            }
+            else {
+                playerTaken.player2Taken += customizations.countdownSettings.countdownNumber;
+                customizations.countdownSettings.countdownNumber = 0;
+            }
+        }
+        changeTurn();
+    }
+    return {
+        getPlayerTaken, getTurn, playTurn
+    };
 })();
 const screen = (function ScreenController() {
+    const playButton = document.querySelector('#playButton');
     const countdownNumberText = document.querySelector('#countdownNumberText');
     const countdownMinText = document.querySelector('#countdownMinText');
     const countdownMaxText = document.querySelector('#countdownMaxText');
     const player1Text = document.querySelector('#player1Text');
     const player2Text = document.querySelector('#player2Text');
+    const player1TakenText = document.querySelector('#player1TakenText');
+    const player2TakenText = document.querySelector('#player2TakenText');
     const turnIndicatorText = document.querySelector('#turnIndicatorText');
-
+    playButton.addEventListener('click', () => {
+        game.playTurn();
+        render();
+    });
     function render() {
         const customizations = form.getCustomizations();
-        countdownNumberText.textContent = customizations.countdownSettings.countdownInitial;
-        countdownMinText.textContent = "Min: " + customizations.countdownSettings.countdownMin
-        countdownMaxText.textContent = "Max: " + customizations.countdownSettings.countdownMax
-
+        const playerTaken = game.getPlayerTaken()
+        countdownNumberText.textContent = customizations.countdownSettings.countdownNumber;
+        countdownMinText.textContent = 'Min: ' + customizations.countdownSettings.countdownMin;
+        countdownMaxText.textContent = 'Max: ' + customizations.countdownSettings.countdownMax;
+        player1TakenText.textContent = playerTaken.player1Taken;
+        player2TakenText.textContent = playerTaken.player2Taken;
         player1Text.textContent = customizations.players.player1Name;
         player2Text.textContent = customizations.players.player2Name;
-        turnIndicatorText.textContent = "Turn: " + "ADD";
+        if(game.getTurn() === 1) {
+            turnIndicatorText.textContent = 'Turn: ' + customizations.players.player1Name;
+        }
+        else {
+            turnIndicatorText.textContent = 'Turn: ' + customizations.players.player2Name;
+        }
+        
     }
     return {
-        render
+        render,
     };
 })();
-const custom = form.getCustomizations();
-console.log(custom);
