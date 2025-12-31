@@ -32,6 +32,7 @@ const form = (function formController() {
                 player2Name: document.querySelector('#player2Name').value,
             },
             countdownSettings: {
+                countdownInitial: document.querySelector('countdownNumber'). value,
                 countdownNumber: document.querySelector('#countdownNumber').value,
                 countdownMin: document.querySelector('#countdownMin').value,
                 countdownMax: document.querySelector('#countdownMax').value,
@@ -39,7 +40,18 @@ const form = (function formController() {
         };
         screen.render();
     });
-
+    // --- Validation --- //
+    function validate() {
+        if(Number(document.querySelector('#countdownMin').value) >= Number(document.querySelector('#countdownMax').value)) {
+            document.querySelector('#countdownMax').setCustomValidity("Your max must be greater than your min");
+            console.log("Min greater than max");
+        }
+        else {
+            document.querySelector('#countdownMax').setCustomValidity("");
+        }
+    }
+    document.querySelector('#countdownMin').addEventListener('input', validate);
+    document.querySelector('#countdownMax').addEventListener('input', validate);
     // --- Public Methods --- //
     function getCustomizations() {
         return customizations;
@@ -58,6 +70,8 @@ const game = (function gameController() {
     function changeTurn() {
         turnIndex++;
     }
+    // --- Public Methods --- //
+    
     function getPlayerTaken() {
         return playerTaken;
     }
@@ -84,6 +98,7 @@ const game = (function gameController() {
             else {
                 playerTaken.player1Taken += customizations.countdownSettings.countdownNumber;
                 customizations.countdownSettings.countdownNumber = 0;
+                screen.endGame();
             }
         }
         else if(player === 2) {
@@ -94,6 +109,7 @@ const game = (function gameController() {
             else {
                 playerTaken.player2Taken += customizations.countdownSettings.countdownNumber;
                 customizations.countdownSettings.countdownNumber = 0;
+                screen.endGame();
             }
         }
         changeTurn();
@@ -134,7 +150,11 @@ const screen = (function ScreenController() {
         }
         
     }
+    function endGame() {
+        playButton.disabled = true;
+    }
     return {
         render,
+        endGame,
     };
 })();
