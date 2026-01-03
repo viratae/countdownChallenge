@@ -38,6 +38,7 @@ const form = (function formController() {
                 countdownMax: document.querySelector('#countdownMax').value,
             },
         };
+        reset();
         screen.render();
     });
     // --- Validation --- //
@@ -53,6 +54,9 @@ const form = (function formController() {
     document.querySelector('#countdownMin').addEventListener('input', validate);
     document.querySelector('#countdownMax').addEventListener('input', validate);
     // --- Public Methods --- //
+    function reset() {
+        customizations.countdownSettings.countdownNumber = customizations.countdownSettings.countdownInitial;
+    }
     function getCustomizations() {
         return customizations;
     }
