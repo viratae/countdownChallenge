@@ -3,7 +3,7 @@ const form = (function formController() {
     const closeModal = document.querySelector('#closeModal');
     const formElement = document.querySelector('#customizeForm');
     const modal = document.querySelector('.modal');
-
+    const resetButton = document.querySelector('#resetButton');
     //Default Values
     let customizations = {
         players: {
@@ -11,6 +11,7 @@ const form = (function formController() {
             player2Name: 'Player 2',
         },
         countdownSettings: {
+            countdownInitial: 50,
             countdownNumber: 50,
             countdownMin: 1,
             countdownMax: 6,
@@ -32,13 +33,21 @@ const form = (function formController() {
                 player2Name: document.querySelector('#player2Name').value,
             },
             countdownSettings: {
-                countdownInitial: document.querySelector('countdownNumber'). value,
+                countdownInitial: document.querySelector('#countdownNumber'). value,
                 countdownNumber: document.querySelector('#countdownNumber').value,
                 countdownMin: document.querySelector('#countdownMin').value,
                 countdownMax: document.querySelector('#countdownMax').value,
             },
         };
-        reset();
+        resetForm();
+        game.resetGame();
+        screen.resetScreen();
+        screen.render();
+    });
+    resetButton.addEventListener('click', () => {
+        resetForm();
+        game.resetGame();
+        screen.resetScreen();
         screen.render();
     });
     // --- Validation --- //
@@ -54,7 +63,7 @@ const form = (function formController() {
     document.querySelector('#countdownMin').addEventListener('input', validate);
     document.querySelector('#countdownMax').addEventListener('input', validate);
     // --- Public Methods --- //
-    function reset() {
+    function resetForm() {
         customizations.countdownSettings.countdownNumber = customizations.countdownSettings.countdownInitial;
     }
     function getCustomizations() {
@@ -75,7 +84,13 @@ const game = (function gameController() {
         turnIndex++;
     }
     // --- Public Methods --- //
-    
+    function resetGame() {
+        turnIndex = 0;
+        playerTaken = {
+            player1Taken: 0,
+            player2Taken: 0
+        }
+    }
     function getPlayerTaken() {
         return playerTaken;
     }
@@ -119,7 +134,10 @@ const game = (function gameController() {
         changeTurn();
     }
     return {
-        getPlayerTaken, getTurn, playTurn
+        resetGame, 
+        getPlayerTaken, 
+        getTurn, 
+        playTurn
     };
 })();
 const screen = (function ScreenController() {
@@ -157,8 +175,12 @@ const screen = (function ScreenController() {
     function endGame() {
         playButton.disabled = true;
     }
+    function resetScreen() {
+        playButton.disabled = false;
+    }
     return {
         render,
         endGame,
+        resetScreen,
     };
 })();

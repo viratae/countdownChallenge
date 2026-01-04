@@ -76,13 +76,15 @@ form button:hover {
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px clamp(20px, 4vw, 150px);
     background-color: #f0f0f0;
     border-bottom: 1px solid #ccc;
     height: 75px;
 }
 .header #left {
+    position: absolute;
+    left: 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -109,20 +111,39 @@ form button:hover {
     background-color: #aaaaaa;
 }
 .header #middle {
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
 }
 h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 36px;
 }
 
-#turnContainer {
+#turnSection {
     display: flex;
     margin-top: 3%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+#turnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+#resetButton {
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    border: none;
+    border-radius: 100px;
+    font-size: 16px;
+    border-bottom: 2px solid #ccc;
+    transition: all 0.5s;
+}
+#resetButton:hover {
+    transform: rotate(45deg);
 }
 #incrementContainer {
     display: flex;
