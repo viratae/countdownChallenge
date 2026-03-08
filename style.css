@@ -31,7 +31,7 @@
     font-weight: bold;
     display: block;
     text-align: right;
-    user-select: none; /* Standard syntax */
+    user-select: none; 
 }
 #closeModal {
     cursor: pointer;
